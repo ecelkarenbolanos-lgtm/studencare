@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentCare - Inicio</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: white;
+            background: #1b3335;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .fondo {
+            position: fixed;
+            top: -15px;
+            left: -15px;
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
+            background-image: url("colegio.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(5px);
+            z-index: -2;
+        }
+
+        .fondo::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 29, 31, 0.70);
+        }
+
+        .navbar-container {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .navbar {
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(160, 160, 160, 0.48);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+        }
+
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .logo-imagen {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .logo .care {
+            color: #79ded2;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 14px;
+            border-radius: 25px;
+            transition: background 0.3s, color 0.3s;
+            white-space: nowrap;
+        }
+
+        .menu a:hover,
+        .menu a.activo {
+            background: #79ded2;
+            color: #163537;
+        }
+
+        main {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 135px 25px 40px;
+        }
+
+        section {
+            scroll-margin-top: 110px;
+        }
+
+        .presentacion {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 25px;
+            align-items: stretch;
+            margin-bottom: 35px;
+        }
+
+        .cuadro {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .bienvenida {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .bienvenida h1 {
+            font-size: clamp(30px, 4vw, 48px);
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .bienvenida h1 span {
+            color: #79ded2;
+        }
+
+        .bienvenida p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #f0f7f6;
+        }
+
+        .imagen-principal {
+            min-height: 300px;
+            padding: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .imagen-principal img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 18px;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            font-size: clamp(25px, 3vw, 36px);
+            margin: 45px 0 25px;
+        }
+
+        .titulo-seccion span {
+            color: #79ded2;
+        }
+
+        .rejilla {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+            margin-bottom: 40px;
+        }
+
+        .tarjeta {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            border-radius: 22px;
+            padding: 25px;
+            min-height: 200px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .tarjeta:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .tarjeta h3 {
+            color: #79ded2;
+            font-size: 19px;
+            margin-bottom: 13px;
+        }
+
+        .tarjeta p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #f2f6f6;
+        }
+
+        .entrevistas {
+            margin-top: 45px;
+        }
+
+        .texto-entrevistas {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 25px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .tarjeta-video {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .tarjeta-video h3 {
+            color: #79ded2;
+            font-size: 19px;
+        }
+
+        .tarjeta-video p {
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .tarjeta-video video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.35);
+        }
+
+        .video-vacio {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px dashed rgba(255, 255, 255, 0.35);
+            text-align: center;
+            padding: 15px;
+        }
+
+        .video-vacio span {
+            font-size: 38px;
+            color: #79ded2;
+        }
+
+        .video-vacio p {
+            font-size: 14px;
+            color: #e2eeee;
+        }
+
+        footer {
+            background: rgba(10, 25, 27, 0.75);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+            padding: 28px 20px;
+            margin-top: 45px;
+        }
+
+        footer p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #e5eeee;
+        }
+
+        footer .equipo {
+            color: #79ded2;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .navbar-container {
+                top: 12px;
+                padding: 0 12px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                border-radius: 28px;
+                gap: 8px;
+                padding: 12px;
+            }
+
+            .marca {
+                justify-content: center;
+            }
+
+            .menu {
+                width: 100%;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .menu a {
+                font-size: 12px;
+                padding: 9px 12px;
+            }
+
+            main {
+                padding-top: 165px;
+            }
+
+            .presentacion {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .rejilla {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar-container {
+                top: 8px;
+                padding: 0 8px;
+            }
+
+            .navbar {
+                padding: 9px 7px;
+                border-radius: 24px;
+                gap: 7px;
+            }
+
+            .marca {
+                gap: 7px;
+            }
+
+            .logo-imagen {
+                width: 32px;
+                height: 32px;
+            }
+
+            .logo {
+                font-size: 17px;
+                letter-spacing: 1px;
+            }
+
+            .menu {
+                gap: 2px;
+            }
+
+            .menu a {
+                font-size: 10px;
+                padding: 8px 9px;
+            }
+
+            main {
+                padding: 145px 14px 25px;
+            }
+
+            .presentacion {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .cuadro {
+                padding: 22px;
+                border-radius: 20px;
+            }
+
+            .bienvenida h1 {
+                font-size: 30px;
+            }
+
+            .bienvenida p {
+                font-size: 16px;
+            }
+
+            .imagen-principal {
+                min-height: 220px;
+            }
+
+            .imagen-principal img {
+                min-height: 210px;
+            }
+
+            .rejilla {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .tarjeta {
+                min-height: auto;
+                padding: 22px;
+            }
+
+            .titulo-seccion {
+                margin: 35px 0 20px;
+            }
+
+            .texto-entrevistas {
+                font-size: 15px;
+            }
+
+            footer {
+                margin-top: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fondo"></div>
+
+    <header class="navbar-container">
+        <nav class="navbar">
+            <a href="index.html" class="marca">
+                <img src="logo.png" alt="Logo de StudentCare" class="logo-imagen">
+                <span class="logo">STUDENT<span class="care">CARE</span></span>
+            </a>
+
+            <div class="menu">
+                <a href="index.html" class="activo">Inicio</a>
+                <a href="nuestroequipo.html">Nuestro equipo</a>
+                <a href="servicios.html">Servicios</a>
+                <a href="contactos.html">Contacto</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="presentacion">
+            <div class="cuadro bienvenida">
+                <h1>Bienvenido a <span>StudentCare</span></h1>
+                <p>
+                    Un espacio creado para acompañar a los estudiantes en su
+                    bienestar emocional y desarrollo personal. Aquí podrás
+                    encontrar información, orientación y recursos que te
+                    ayudarán a afrontar los retos de la vida escolar.
+                </p>
+            </div>
+
+            <div class="cuadro imagen-principal">
+                <img src="Estudiantes.jpg" alt="Estudiantes compartiendo en el colegio">
+            </div>
+        </section>
+
+        <section id="informacion">
+            <h2 class="titulo-seccion">Conoce más sobre <span>StudentCare</span></h2>
+
+            <div class="rejilla">
+                <article class="tarjeta">
+                    <h3>¿Qué es StudentCare?</h3>
+                    <p>
+                        StudentCare es un prototipo de página web diseñado
+                        para brindar acompañamiento a los estudiantes y
+                        conectarlos con personas, instituciones y entidades
+                        que puedan ayudarlos.
+                    </p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Nuestro objetivo</h3>
+                    <p>
+                        Queremos facilitar el acceso a recursos de apoyo,
+                        promover el bienestar estudiantil y ayudar a crear
+                        un entorno escolar más comprensivo y seguro.
+                    </p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Conócete mejor</h3>
+                    <p>
+                        Reconocer tus emociones, comprender tus pensamientos
+                        y descubrir tus fortalezas son pasos importantes
+                        para tu crecimiento personal.
+                    </p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Cuida tu bienestar</h3>
+                    <p>
+                        Dedicar tiempo al descanso, expresar lo que sientes,
+                        mantener hábitos saludables y pedir ayuda cuando la
+                        necesitas también forman parte de tu bienestar.
+                    </p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>No estás solo</h3>
+                    <p>
+                        Si atraviesas una situación difícil, puedes buscar
+                        apoyo en personas de confianza, docentes, orientadores
+                        escolares o profesionales capacitados.
+                    </p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>¿Por qué es importante?</h3>
+                    <p>
+                        El bienestar emocional puede influir en el aprendizaje,
+                        la convivencia y las relaciones. Por eso, contar con
+                        espacios de escucha y orientación es importante.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="entrevistas" id="entrevistas">
+            <h2 class="titulo-seccion">Voces que nos <span>orientan</span></h2>
+
+            <p class="texto-entrevistas">
+                Conoce diferentes puntos de vista, experiencias y consejos
+                relacionados con el bienestar emocional y la vida escolar.
+                En este espacio podrás agregar entrevistas y videos.
+            </p>
+
+            <div class="rejilla">
+                <article class="tarjeta tarjeta-video">
+                    <h3>Entrevista 1</h3>
+                    <div class="video-vacio">
+                        <span>▶</span>
+                        <p>Aquí puedes agregar tu primer video.</p>
+                    </div>
+                    <p>
+                        Escribe aquí una descripción de la entrevista,
+                        su tema principal y lo que aprenderán los estudiantes.
+                    </p>
+                </article>
+
+                <article class="tarjeta tarjeta-video">
+                    <h3>Entrevista 2</h3>
+                    <div class="video-vacio">
+                        <span>▶</span>
+                        <p>Aquí puedes agregar tu segundo video.</p>
+                    </div>
+                    <p>
+                        Escribe aquí una descripción de la segunda entrevista
+                        o comparte recomendaciones para el bienestar escolar.
+                    </p>
+                </article>
+
+                <article class="tarjeta tarjeta-video">
+                    <h3>Próximamente</h3>
+                    <div class="video-vacio">
+                        <span>＋</span>
+                        <p>Espacio disponible para otro video.</p>
+                    </div>
+                    <p>
+                        Puedes utilizar este espacio para publicar nuevas
+                        entrevistas, testimonios o recursos educativos.
+                    </p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© StudentCare 2027. Todos los derechos reservados.</p>
+        <p>Un espacio para acompañar, escuchar y orientar.</p>
+        <p class="equipo">
+            Proyecto realizado por: David Marcillo, Daiana Bolaños,
+            Danna Garzon y Juan Pulido.
+        </p>
+    </footer>
+</body>
+</html>

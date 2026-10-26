@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentCare - Contactos</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            background: #1b3335;
+        }
+
+        .fondo {
+            position: fixed;
+            top: -20px;
+            left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            background-image: url("colegio.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: blur(5px);
+            z-index: -2;
+        }
+
+        .fondo::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .navbar-container {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            padding: 0 20px;
+            z-index: 1000;
+        }
+
+        .navbar {
+            width: 100%;
+            max-width: 1100px;
+            min-height: 70px;
+            background: rgba(160, 160, 160, 0.30);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 50px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.22);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 10px 22px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .logo span {
+            color: #6ee7b7;
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+
+        .menu a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 11px 15px;
+            border-radius: 30px;
+            white-space: nowrap;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .menu a:hover,
+        .menu a.activo {
+            background: rgba(255, 255, 255, 0.20);
+        }
+
+        .menu a:hover {
+            transform: translateY(-2px);
+        }
+
+        .menu-toggle {
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 23px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        main {
+            min-height: 100vh;
+            padding: 145px 20px 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .contactos {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .cuadro-principal {
+            width: 90%;
+            max-width: 800px;
+            padding: 50px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.30);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+            text-align: center;
+        }
+
+        .etiqueta {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #8be4d9;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(42px, 5vw, 65px);
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        h1 span {
+            color: #79ded2;
+        }
+
+        .descripcion {
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .cuadros-abajo {
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .cuadro {
+            flex: 1 1 250px;
+            max-width: 310px;
+            min-height: 210px;
+            padding: 30px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.30);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.22);
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .cuadro:hover {
+            transform: translateY(-7px);
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .cuadro h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #7de0d3;
+        }
+
+        .cuadro p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .boton {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 22px;
+            border-radius: 30px;
+            background: #65d3c6;
+            color: #173537;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .boton:hover {
+            background: #8be4d9;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            padding: 25px 15px;
+            text-align: center;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.75);
+            background: rgba(0, 0, 0, 0.18);
+        }
+
+        @media (max-width: 850px) {
+            .navbar {
+                gap: 10px;
+                padding: 9px 15px;
+            }
+
+            .logo {
+                font-size: 17px;
+                letter-spacing: 1px;
+                gap: 7px;
+            }
+
+            .logo img {
+                width: 34px;
+                height: 34px;
+            }
+
+            .menu a {
+                font-size: 11px;
+                padding: 10px 9px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .navbar-container {
+                top: 12px;
+                padding: 0 12px;
+            }
+
+            .navbar {
+                min-height: 60px;
+                border-radius: 30px;
+                justify-content: space-between;
+                padding: 8px 14px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .logo img {
+                width: 32px;
+                height: 32px;
+            }
+
+            .menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .menu {
+                display: none;
+                position: absolute;
+                top: calc(100% + 10px);
+                left: 12px;
+                right: 12px;
+                padding: 12px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 5px;
+                background: rgba(25, 48, 49, 0.96);
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                border-radius: 24px;
+                backdrop-filter: blur(18px);
+                -webkit-backdrop-filter: blur(18px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            }
+
+            .menu.abierto {
+                display: flex;
+            }
+
+            .menu a {
+                font-size: 13px;
+                padding: 13px 15px;
+                text-align: center;
+                border-radius: 18px;
+            }
+
+            main {
+                padding: 110px 15px 50px;
+            }
+
+            .contactos {
+                gap: 22px;
+            }
+
+            .cuadro-principal {
+                width: 100%;
+                padding: 35px 22px;
+                border-radius: 25px;
+            }
+
+            h1 {
+                font-size: clamp(36px, 10vw, 48px);
+            }
+
+            .descripcion {
+                font-size: 15px;
+            }
+
+            .cuadros-abajo {
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                gap: 18px;
+            }
+
+            .cuadro {
+                width: 100%;
+                max-width: 420px;
+                flex: none;
+                min-height: auto;
+                padding: 27px 23px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fondo"></div>
+
+    <header class="navbar-container">
+        <div class="navbar">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="Logo de StudentCare">
+                <span style="color: white;">STUDENT<span>CARE</span></span>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
+                ☰
+            </button>
+
+            <nav class="menu" id="menu">
+                <a href="index.html">Inicio</a>
+                <a href="nuestroequipo.html">Nuestro equipo</a>
+                <a href="servicios.html">Servicios</a>
+                <a href="contactos.html" class="activo">Contactos</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="contactos">
+            <div class="cuadro-principal">
+                <div class="etiqueta">TE AYUDAMOS</div>
+
+                <h1>Estamos <span>para ti.</span></h1>
+
+                <p class="descripcion">
+                    En este espacio puedes encontrar diferentes formas de comunicarte con nosotros y obtener apoyo.
+                    En StudentCare queremos escucharte, orientarte y ayudarte a encontrar recursos que respondan a tus necesidades.
+                </p>
+            </div>
+
+            <div class="cuadros-abajo">
+                <div class="cuadro">
+                    <h2>📧 Correo</h2>
+                    <p>
+                        Escríbenos para realizar preguntas, compartir tus inquietudes o solicitar más información.
+                    </p>
+
+                    <a
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=suarez93736@gmail.com"
+                        class="boton"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Enviar correo
+                    </a>
+                </div>
+
+                <div class="cuadro">
+                    <h2>💬 Comunicación</h2>
+                    <p>
+                        Tu voz es importante. Queremos conocer tus inquietudes y ayudarte a encontrar orientación.
+                    </p>
+
+                    <a href="mailto:suarez93736@gmail.com?subject=Contacto%20StudentCare" class="boton">
+                        Escribir mensaje
+                    </a>
+                </div>
+
+                <div class="cuadro">
+                    <h2>🏫 Institución</h2>
+                    <p>
+                        Conoce la institución educativa y encuentra información relacionada con nuestra comunidad escolar.
+                    </p>
+
+                    <a
+                        href="https://iecelmirabuenodeorejuela.edu.co/"
+                        class="boton"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Conocer más
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © StudentCare · Un espacio de acompañamiento para estudiantes
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const menu = document.getElementById("menu");
+
+        menuToggle.addEventListener("click", function () {
+            const abierto = menu.classList.toggle("abierto");
+            menuToggle.setAttribute("aria-expanded", abierto);
+            menuToggle.setAttribute("aria-label", abierto ? "Cerrar menú" : "Abrir menú");
+            menuToggle.textContent = abierto ? "×" : "☰";
+        });
+
+        menu.querySelectorAll("a").forEach(function (enlace) {
+            enlace.addEventListener("click", function () {
+                menu.classList.remove("abierto");
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Abrir menú");
+                menuToggle.textContent = "☰";
+            });
+        });
+    </script>
+</body>
+</html>
